@@ -58,7 +58,7 @@ public class Parser: Parsing {
         
         let streamID = self.streamID!
         let count = data.count
-        _ = try data.withUnsafeBytes { (bytes: UnsafePointer<UInt8>) in
+        try withUnsafePointer(to: data) { bytes in
             let result = AudioFileStreamParseBytes(streamID, UInt32(count), bytes, [])
             guard result == noErr else {
                 os_log("Failed to parse bytes", log: Parser.logger, type: .error)
